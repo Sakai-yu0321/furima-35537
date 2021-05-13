@@ -22,11 +22,11 @@
 | ------------------- | ---------- | ------------------------------ |
 | product_name        | string     | null: false                    |
 | product_description | text       | null: false                    |
-| category            | integer    | null: false                    |
-| product_status      | integer    | null: false                    |
-| shipping_charges    | integer    | null: false                    |
-| prefectures         | integer    | null: false                    |
-| days_to_ship        | integer    | null: false                    |
+| category_id         | integer    | null: false                    |
+| product_status_id   | integer    | null: false                    |
+| shipping_charge_id  | integer    | null: false                    |
+| prefecture_id       | integer    | null: false                    |
+| day_to_ship_id      | integer    | null: false                    |
 | price               | integer    | null: false                    |
 | user                | references | null :false, foreign_key :true |
 
