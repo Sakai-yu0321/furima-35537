@@ -26,27 +26,22 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Product description can't be blank"
       end
       it 'category_idが1では出品できない' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Category must be other than 1'
       end
       it 'product_status_idが1では出品できない' do
-        @item.product_status_id = '1'
+        @item.product_status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Product status must be other than 1'
       end
       it 'shipping_charge_idが1では出品できない' do
-        @item.shipping_charge_id = '1'
+        @item.shipping_charge_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping charge must be other than 1'
       end
-      # it 'prefecture_idが1では出品できない' do
-      #   @item. =
-      #   @item.valid?
-      #   expect(@item.errors.full_messages). to include ""
-      # end
       it 'day_to_ship_idが1では出品できない' do
-        @item.day_to_ship_id = '1'
+        @item.day_to_ship_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Day to ship must be other than 1'
       end
@@ -54,6 +49,21 @@ RSpec.describe Item, type: :model do
         @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank", 'Price is not a number'
+      end
+      it 'priceが299以下では出品できない' do
+        @item.price = 299
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price must be greater than or equal to 300'
+      end
+      it 'priceが10000000以上では出品できない' do
+        @item.price = 10_000_000
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price must be less than or equal to 9999999'
+      end
+      it 'priceが半角数字ではない場合出品できない' do
+        @item.price = 'aあア亜'
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price is not a number'
       end
       it 'userが紐付いていないと出品できない' do
         @item.user = nil
