@@ -40,6 +40,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping charge must be other than 1'
       end
+      it 'prefecture_idが1では登録できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Prefecture must be other than 1'
+      end
       it 'day_to_ship_idが1では出品できない' do
         @item.day_to_ship_id = 1
         @item.valid?
@@ -62,6 +67,16 @@ RSpec.describe Item, type: :model do
       end
       it 'priceが半角数字ではない場合出品できない' do
         @item.price = 'aあア亜'
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price is not a number'
+      end
+      it 'priceが半角英語では出品できない' do
+        @item.price = 'aaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price is not a number'
+      end
+      it 'priceが全角文字では登録できない' do
+        @item.price = 'あああ'
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price is not a number'
       end
