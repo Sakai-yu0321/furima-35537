@@ -1,6 +1,10 @@
 class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category, :product_status, :shipping_charge, :prefecture, :day_to_ship
+  belongs_to :category
+  belongs_to :product_status
+  belongs_to :shipping_charge
+  belongs_to :prefecture
+  belongs_to :day_to_ship
 
   with_options presence: true do
     validates :image, :product_name, :product_description, :category_id, :product_status_id, :shipping_charge_id, :prefecture_id,
