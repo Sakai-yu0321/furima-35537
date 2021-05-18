@@ -120,14 +120,14 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
       end
       it 'last_nameが漢字・平仮名・カタカナ以外では登録できないこと' do
-        @user.last_name = "kana"
+        @user.last_name = 'kana'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Last name 全角文字を使用してください"
+        expect(@user.errors.full_messages).to include 'Last name 全角文字を使用してください'
       end
       it 'first_nameが漢字・平仮名・カタカナ以外では登録できないこと' do
-        @user.first_name = "kana"
+        @user.first_name = 'kana'
         @user.valid?
-        expect(@user.errors.full_messages).to include "First name 全角文字を使用してください"
+        expect(@user.errors.full_messages).to include 'First name 全角文字を使用してください'
       end
       it 'kana_last_nameがカタカナではない場合登録できない' do
         @user.kana_last_name = '山だ'
@@ -139,7 +139,6 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include 'Kana first name 全角カナ文字を使用してください'
       end
-
     end
   end
 end
