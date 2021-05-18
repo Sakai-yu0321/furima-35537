@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @item = Item.find_by(user_id: params[:id])
+    @item = Item.find(params[:id])
   end
 
   def new
