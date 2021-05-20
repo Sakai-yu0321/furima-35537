@@ -5,17 +5,17 @@ RSpec.describe PurchaseAddress, type: :model do
     @purchase_address = FactoryBot.build(:purchase_address)
   end
   describe '商品購入' do
-    # context '購入できる時' do
-    #   it 'postal_code、prefecture_id、municipality、address、phone_numberが存在すれば購入できる' do
-    #     expect(@purchase_address).to be_valid
-    #   end
-    #   it 'postal_codeに「-」が含まれていれば購入できる' do
-    #     expect(@purchase_address).to be_valid
-    #   end
-    #   it 'phone_numberが11桁以内なら購入できる' do
-    #     expect(@purchase_address).to be_valid
-    #   end
-    # end
+    context '購入できる時' do
+      it 'user_id、item_id、postal_code、prefecture_id、municipality、address、phone_number、tokenが存在すれば購入できる' do
+        expect(@purchase_address).to be_valid
+      end
+      it 'postal_codeに「-」が含まれていれば購入できる' do
+        expect(@purchase_address).to be_valid
+      end
+      it 'phone_numberが11桁以内なら購入できる' do
+        expect(@purchase_address).to be_valid
+      end
+    end
     context '購入できない時' do
       it 'postal_codeが空では購入できない' do
         @purchase_address.postal_code = ""
@@ -42,6 +42,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include "Phone number can't be blank"
       end
+      it 'tokenが空では購入できない' do
+        @purchase_address.token = ""
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include "Token can't be blank"
+      end
       it 'postal_codeに「-」が含まれない場合購入できない' do
         @purchase_address.postal_code = "1234567"
         @purchase_address.valid?
@@ -50,12 +55,12 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'postal_codeに全角文字が含まれる場合購入できない' do
         @purchase_address.postal_code = "123-あア亜"
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include "Postal code is not a number"
+        expect(@purchase_address.errors.full_messages).to include "Postal code Postal code is invalid. Enter it as follows (e.g. 123-4567)"
       end
       it 'postal_codeに半角英字が含まれる場合購入できない' do
         @purchase_address.postal_code = "123-aaaa"
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include "Postal code is not a number"
+        expect(@purchase_address.errors.full_messages).to include "Postal code Postal code is invalid. Enter it as follows (e.g. 123-4567)"
       end
       it 'phone_numberが9桁以下の場合購入できない' do
         @purchase_address.phone_number = "123456789"
