@@ -11,17 +11,22 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'postal_code、prefecture_id、municipality、address、phone_number、tokenが存在すれば購入できる' do
         expect(@purchase_address).to be_valid
       end
-      it 'postal_codeに「-」が含まれていれば購入できる' do
-        expect(@purchase_address).to be_valid
-      end
-      it 'phone_numberが11桁以内なら購入できる' do
-        expect(@purchase_address).to be_valid
-      end
       it 'building_nameが空でも購入できる' do
+        @purchase_address.building_name = ""
         expect(@purchase_address).to be_valid
       end
     end
     context '購入できない時' do
+      it 'user_idが空では登録できない' do
+        @purchase_address.user_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include "User can't be blank"
+      end
+      it 'item_idが空では登録できない' do
+        @purchase_address.item_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include "Item can't be blank"
+      end
       it 'postal_codeが空では購入できない' do
         @purchase_address.postal_code = ""
         @purchase_address.valid?

@@ -64,7 +64,7 @@ class ItemsController < ApplicationController
   end
 
   def purchased_already
-    if @item.purchase == nil
+    if @item.purchase != nil
       redirect_to root_path
     end
   end
