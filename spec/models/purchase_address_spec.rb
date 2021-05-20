@@ -2,11 +2,13 @@ require 'rails_helper'
 
 RSpec.describe PurchaseAddress, type: :model do
   before do
-    @purchase_address = FactoryBot.build(:purchase_address)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
   end
   describe '商品購入' do
     context '購入できる時' do
-      it 'user_id、item_id、postal_code、prefecture_id、municipality、address、phone_number、tokenが存在すれば購入できる' do
+      it 'postal_code、prefecture_id、municipality、address、phone_number、tokenが存在すれば購入できる' do
         expect(@purchase_address).to be_valid
       end
       it 'postal_codeに「-」が含まれていれば購入できる' do

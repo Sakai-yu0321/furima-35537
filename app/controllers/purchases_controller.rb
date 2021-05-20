@@ -45,7 +45,7 @@ class PurchasesController < ApplicationController
   end
 
   def purchased_already
-    if @item.purchase
+    if @item.purchase == ~~ 
       redirect_to root_path
     end
   end
