@@ -7,6 +7,6 @@ FactoryBot.define do
     municipality  { '横浜市緑区' }
     address       { '青山1-1-1' }
     phone_number  { '12345678910' }
-    token         {"tok_abcdefghijk00000000000000000"}
+    token         { "tok_abcdefghijk00000000000000000" }
   end
 end

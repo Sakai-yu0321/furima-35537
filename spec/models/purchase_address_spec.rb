@@ -52,8 +52,18 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include "Postal code Postal code is invalid. Enter it as follows (e.g. 123-4567)"
       end
+      it 'postal_codeの「-」以前の数字が3文字ではない場合保存できない' do
+        @purchase_address.postal_code = "1234-5678"
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include "Postal code Postal code is invalid. Enter it as follows (e.g. 123-4567)"
+      end
+      it 'postal_codeの「-」以降の数字が4文字ではない場合保存できない' do
+        @purchase_address.postal_code = "123-45678"
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include "Postal code Postal code is invalid. Enter it as follows (e.g. 123-4567)"
+      end
       it 'postal_codeに全角文字が含まれる場合購入できない' do
-        @purchase_address.postal_code = "123-あア亜"
+        @purchase_address.postal_code = "123-あア亜亜"
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include "Postal code Postal code is invalid. Enter it as follows (e.g. 123-4567)"
       end
