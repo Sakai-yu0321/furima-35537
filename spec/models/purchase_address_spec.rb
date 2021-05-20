@@ -17,6 +17,9 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'phone_numberが11桁以内なら購入できる' do
         expect(@purchase_address).to be_valid
       end
+      it 'building_nameが空でも購入できる' do
+        expect(@purchase_address).to be_valid
+      end
     end
     context '購入できない時' do
       it 'postal_codeが空では購入できない' do
@@ -29,6 +32,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include "Prefecture can't be blank"
       end
+      it 'prefecture_idが空では購入できない' do
+        @purchase_address.prefecture_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include "Prefecture can't be blank"
+       end
       it 'municipalityが空では購入できない' do
         @purchase_address.municipality = ""
         @purchase_address.valid?
