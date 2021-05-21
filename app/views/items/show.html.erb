@@ -22,7 +22,7 @@
         <%= @item.shipping_charge.name %>
       </span>
     </div>
-    <% unless @item.purchase %>
+    <% if user_signed_in? && @item.purchase == nil %>
     <% if current_user.id == @item.user_id %>
 
     <%= link_to "商品の編集", edit_item_path(@item.id), method: :get, class: "item-red-btn" %>
